@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.work.domain.notice.mapper.NoticeMapper">
+
+    <!-- 목록 -->
+    <select id="findAll" resultType="com.work.domain.notice.dto.NoticeDto">
+        SELECT id, title, created_at
+        FROM notices
+        ORDER BY id DESC
+    </select>
+
+    <!-- 상세 -->
+    <select id="findById" parameterType="long" resultType="com.work.domain.notice.dto.NoticeDto">
+        SELECT id, title, content, created_at
+        FROM notices
+        WHERE id = #{id}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insert" parameterType="com.work.domain.notice.dto.NoticeDto">
+        INSERT INTO notices (id, title, content)
+        VALUES (notices_seq.NEXTVAL, #{title}, #{content})
+    </insert>
+
+    <!-- 삭제 -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM notices WHERE id = #{id}
+    </delete>
+
+</mapper>
